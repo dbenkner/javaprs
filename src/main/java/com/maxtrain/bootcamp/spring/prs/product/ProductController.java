@@ -29,8 +29,9 @@ public class ProductController {
 	@PostMapping
 	public ResponseEntity<Product> addNewProduct(@RequestBody Product product){
 		if (product.getId() != 0) return new ResponseEntity (HttpStatus.BAD_REQUEST);
+		if (product.getPrice() <= 0) return new ResponseEntity (HttpStatus.BAD_REQUEST);
 		productRepo.save(product);
-		return new ResponseEntity<Product> (product, HttpStatus.OK);
+		return new ResponseEntity<Product> (product, HttpStatus.CREATED);
 	}
 	@PutMapping("{id}")
 	public ResponseEntity<Product> updateProduct(@RequestBody Product product, @PathVariable int id){

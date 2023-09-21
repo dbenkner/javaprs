@@ -1,5 +1,9 @@
 package com.maxtrain.bootcamp.spring.prs.request;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.maxtrain.bootcamp.spring.prs.requestlines.Requestline;
 import com.maxtrain.bootcamp.spring.prs.user.User;
 
 import jakarta.persistence.Column;
@@ -10,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name="requests")
@@ -21,9 +26,9 @@ public class Request {
 	private String description = "";
 	@Column(length=80, nullable=false)
 	private String justification = "";
-	@Column(length=80, nullable=false)
-	private String rejectionReason ="";
-	@Column(length=20, nullable=true)
+	@Column(length=80, nullable=true)
+	private String rejectionReason;
+	@Column(length=20, nullable=false)
 	private String deliveryMode = "Pickup";
 	@Column(length=10, nullable =false)
 	private String status = "NEW";
@@ -32,6 +37,7 @@ public class Request {
 	@ManyToOne
 	@JoinColumn(name="userId")
 	public User user;
+
 	Request (){}
 	public int getId() {
 		return id;
@@ -81,6 +87,8 @@ public class Request {
 	public void setUser(User user) {
 		this.user = user;
 	}
+
+
 	
 	
 }

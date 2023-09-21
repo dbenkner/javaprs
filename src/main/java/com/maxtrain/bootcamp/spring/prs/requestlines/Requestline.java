@@ -24,7 +24,6 @@ public class Requestline {
 	public Request request;
 	@ManyToOne
 	@JoinColumn(name="productId")
-	@JsonIgnore
 	public Product product;
 	private int quantity = 1;
 	
@@ -40,12 +39,12 @@ public class Requestline {
 		this.id = id;
 	}
 
-	public Request getReqeust() {
+	public Request getRequest() {
 		return request;
 	}
 
-	public void setReqeust(Request reqeust) {
-		this.request = reqeust;
+	public void setRequest(Request request) {
+		this.request = request;
 	}
 
 	public Product getProduct() {

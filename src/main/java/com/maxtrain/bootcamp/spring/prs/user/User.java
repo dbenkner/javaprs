@@ -23,12 +23,12 @@ public class User {
 	@Column(length=30, nullable=false)
 	private String lastname = "";
 	@Column(length=12, nullable=true)
-	private String phone = "";
+	private String phone;
 	@Column(length=255, nullable=true)
-	private String email = "";
-	@Column(columnDefinition="bit not null")
-	private boolean isReviwer = false;
-	@Column(columnDefinition="bit not null")
+	private String email;
+	@Column(columnDefinition="bit not null default 0")
+	private boolean isReviewer = false;
+	@Column(columnDefinition="bit not null default 0")
 	private boolean isAdmin = false;
 	
 	User(){
@@ -75,16 +75,16 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public boolean isReviwer() {
-		return isReviwer;
+	public boolean getIsReviewer() {
+		return isReviewer;
 	}
-	public void setReviwer(boolean isReviwer) {
-		this.isReviwer = isReviwer;
+	public void setIsisReviewer(boolean isReviewer) {
+		this.isReviewer = isReviewer;
 	}
-	public boolean isAdmin() {
+	public boolean getIsAdmin() {
 		return isAdmin;
 	}
-	public void setAdmin(boolean isAdmin) {
+	public void setIsAdmin(boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 	

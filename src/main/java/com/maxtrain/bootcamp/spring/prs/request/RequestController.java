@@ -1,11 +1,15 @@
 package com.maxtrain.bootcamp.spring.prs.request;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.maxtrain.bootcamp.spring.prs.requestlines.Requestline;
+import com.maxtrain.bootcamp.spring.prs.requestlines.RequestlineRepository;
 
 
 @CrossOrigin
@@ -14,6 +18,8 @@ import org.springframework.web.bind.annotation.*;
 public class RequestController {
 	@Autowired
 	RequestRepository requestRepo;
+	@Autowired
+	RequestlineRepository rlRepo;
 	
 	@GetMapping
 	public ResponseEntity<Iterable<Request>> getAllRequests(){
@@ -38,7 +44,7 @@ public class RequestController {
 	public ResponseEntity<Request> addNewRequest(@RequestBody Request request){
 		if (request.getId() != 0) return new ResponseEntity (HttpStatus.BAD_REQUEST);
 		requestRepo.save(request);
-		return new ResponseEntity<Request> (request, HttpStatus.OK);
+		return new ResponseEntity<Request> (HttpStatus.CREATED);
 	}
 	@PutMapping("{id}")
 	public ResponseEntity<Request> updateRequest(@RequestBody Request request, @PathVariable int id){

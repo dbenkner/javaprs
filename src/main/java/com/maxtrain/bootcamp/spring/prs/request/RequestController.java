@@ -44,11 +44,12 @@ public class RequestController {
 	public ResponseEntity<Request> addNewRequest(@RequestBody Request request){
 		if (request.getId() != 0) return new ResponseEntity (HttpStatus.BAD_REQUEST);
 		requestRepo.save(request);
-		return new ResponseEntity<Request> (HttpStatus.CREATED);
+		return new ResponseEntity<Request> (request, HttpStatus.CREATED);
 	}
 	@PutMapping("{id}")
 	public ResponseEntity<Request> updateRequest(@RequestBody Request request, @PathVariable int id){
 		if (id <= 0) return new ResponseEntity (HttpStatus.BAD_REQUEST);
+		if (request.getTotal() < 0) return new ResponseEntity (HttpStatus.BAD_REQUEST);
 		if (request.getId() != id) return new ResponseEntity (HttpStatus.BAD_REQUEST);
 		requestRepo.save(request);
 		return new ResponseEntity<Request> (request, HttpStatus.OK);
@@ -85,10 +86,16 @@ public class RequestController {
 		requestRepo.save(request.get());
 		return new ResponseEntity<Request> (request.get(), HttpStatus.OK);
 	}
+	@SuppressWarnings("rawtypes")
 	@DeleteMapping("{id}")
-	public ResponseEntity deleteRequest(@PathVariable int id) {
-		if (id <= 0) return new ResponseEntity (HttpStatus.BAD_REQUEST);
+	public ResponseEntity removeRequest(@PathVariable int id) {
+		if (id <= 0) {
+			return new ResponseEntity(HttpStatus.BAD_REQUEST);
+		}
+		Optional<Request>req = requestRepo.findById(id);
+		if (req.isEmpty()) return new ResponseEntity(HttpStatus.NOT_FOUND);
 		requestRepo.deleteById(id);
-		return new ResponseEntity (HttpStatus.OK);
+		
+		return new ResponseEntity(HttpStatus.NO_CONTENT);
 	}
 }

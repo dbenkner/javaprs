@@ -27,8 +27,8 @@ public class Request {
 	@Column(length=80, nullable=false)
 	private String justification = "";
 	@Column(length=80, nullable=true)
-	private String rejectionReason;
-	@Column(length=20, nullable=false)
+	private String rejectionReason ="";
+	@Column(length=20, nullable=true)
 	private String deliveryMode = "Pickup";
 	@Column(length=10, nullable =false)
 	private String status = "NEW";
@@ -38,6 +38,7 @@ public class Request {
 	@JoinColumn(name="userId")
 	public User user;
 
+	
 	Request (){}
 	public int getId() {
 		return id;
@@ -87,7 +88,6 @@ public class Request {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
 
 	
 	
